@@ -9,6 +9,7 @@ public:
 	~GameObject();
 
 	void Update();
+	void setCamera(SDL_Rect& camera);
 	void HandleEvent(SDL_Event& e);
 	void Render();
 

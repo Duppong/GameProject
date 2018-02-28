@@ -37,7 +37,7 @@ void game::init(const char* title, int width, int height, bool fullscreen)
 
 		isRunning = true;
 	}
-	player = new GameObject("assets/player.png",0,576);
+	player = new GameObject("assets/player.png",0,545);
 	map = new Map();
 }
 
