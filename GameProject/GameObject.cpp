@@ -1,6 +1,6 @@
 #include "GameObject.h"
 #include "TextureManager.h"
-
+#include <Windows.h>
 
 
 GameObject::GameObject(const char* textureSheet, int x, int y)
@@ -16,14 +16,16 @@ GameObject::GameObject(const char* textureSheet, int x, int y)
 
 void GameObject::HandleEvent(SDL_Event & e)
 {
-	int velocty = 1;
-	
+	int velocty = 2;
+	int jumppoint = 0;// jumping variables
+	const int base = 576;
 
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
 	{
 		switch (e.key.keysym.sym)
 		{
 		case SDLK_UP: velY -= velocty;
+
 			break;
 		case SDLK_DOWN: velY += velocty;
 			break;
@@ -31,6 +33,17 @@ void GameObject::HandleEvent(SDL_Event & e)
 			break;
 		case SDLK_RIGHT: velX += velocty;
 			break;
+		case SDLK_SPACE:
+		{
+			if (ypos = base)
+				velY = -3;
+			else velY = 3;
+
+
+
+
+			break;
+		}
 		}
 	}
 	else if (e.type == SDL_KEYUP && e.key.repeat == 0)
@@ -45,14 +58,15 @@ void GameObject::HandleEvent(SDL_Event & e)
 			break;
 		case SDLK_RIGHT: velX -= velocty;
 			break;
+		case SDLK_SPACE: velY = 3;
 		}
 	}
 }
 
 void GameObject::Update()
 {
-	int gravity = 1;
-	
+
+
 	xpos += velX;
 	if (xpos < 0 || (xpos + 64 > 800))
 	{
@@ -83,6 +97,9 @@ void GameObject::Update()
 void GameObject::Render()
 {
 	SDL_RenderCopy(game::renderer, objTexture, &srcRect, &destRect);
+	Sleep(2);
+	if (ypos < 576 - 300)
+		velY = 4;
 }
 
 GameObject::~GameObject()
