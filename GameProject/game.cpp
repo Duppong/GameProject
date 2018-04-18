@@ -19,7 +19,7 @@ SDL_Rect collisionBox;
 int randomNumber = 5;
 int blockCount = 0;
 int spawnPoint;
-
+int score = 0;
 game::game()
 {
 }
@@ -62,9 +62,11 @@ void game::checkCollision()
 			if ( player->getX() >= blockArray[i]->getXBox()-64 && player->getX() <= blockArray[i]->getXBox()+64
 				&& player->getY() >= blockArray[i]->getYBox() -64&& player->getY() <= blockArray[i]->getYBox() + 64)
 			{
-				blockArray[i]->~fallingObject();
-				cout << "X axis collision block " + i << blockArray[i]->getXBox() << endl;
-				cout << "player" << player->getX() << endl;
+				delete blockArray[i];
+				//cout << "X axis collision block " + i << blockArray[i]->getXBox() << endl;
+				score += 10;
+				cout << "Score: " << score << endl;
+				blockCount -= 1;
 			}
 		}
 	}
