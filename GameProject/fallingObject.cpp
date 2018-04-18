@@ -1,10 +1,11 @@
-#include "GameObject.h"
+#include "fallingObject.h"
 #include "TextureManager.h"
 #include <Windows.h>
 #include "constants.h"
+#include "fallingObject.h"
 
 
-GameObject::GameObject(const char* textureSheet, int x, int y)
+fallingObject::fallingObject(const char* textureSheet, int x, int y)
 {
 	objTexture = TextureManager::LoadTexture(textureSheet);
 
@@ -16,29 +17,25 @@ GameObject::GameObject(const char* textureSheet, int x, int y)
 }
 
 
-void GameObject::HandleEvent(SDL_Event & e)
+void fallingObject::HandleEvent(SDL_Event & e)
 {
 	int velocty = 2;
-	int jumppoint = 0;// jumping variables
-	const int base = 576;
+	const int base = 550;
 
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
 	{
 		switch (e.key.keysym.sym)
 		{
-		/*case SDLK_UP: velY -= velocty;
+			/*case SDLK_UP:;
 			break;
-		case SDLK_DOWN: velY += velocty;
+			case SDLK_DOWN:;
 			break;*/
-		case SDLK_LEFT: velX -= velocty;
+		case SDLK_LEFT:;
 			break;
-		case SDLK_RIGHT: velX += velocty;
+		case SDLK_RIGHT:;
 			break;
 		case SDLK_SPACE:
 		{
-			if (ypos = base)
-				velY = -3;
-			else velY = 3;
 			break;
 		}
 		}
@@ -47,24 +44,24 @@ void GameObject::HandleEvent(SDL_Event & e)
 	{
 		switch (e.key.keysym.sym)
 		{
-		/*case SDLK_UP: velY += velocty;
+			/*case SDLK_UP:;
 			break;*/
-		/*case SDLK_DOWN: velY -= velocty;
+			/*case SDLK_DOWN:;
 			break;*/
-		case SDLK_LEFT: velX += velocty;
+		case SDLK_LEFT:;
 			break;
-		case SDLK_RIGHT: velX -= velocty;
+		case SDLK_RIGHT:;
 			break;
-		case SDLK_SPACE: velY = 3;
+		case SDLK_SPACE:;
 		}
 	}
 }
 
-void GameObject::Update(SDL_Rect& Box)
+void fallingObject::Update()
 {
 	xpos += velX;
 
-	if (xpos < 0 || (xpos + 64 > screenWidth) )
+	if (xpos < 0 || (xpos + 64 > screenWidth))
 	{
 		xpos -= velX;
 	}
@@ -77,6 +74,8 @@ void GameObject::Update(SDL_Rect& Box)
 	}
 
 
+	
+
 	srcRect.h = 32;
 	srcRect.w = 32;
 	srcRect.x = 0;
@@ -87,40 +86,29 @@ void GameObject::Update(SDL_Rect& Box)
 	destRect.w = srcRect.w * 2;
 	destRect.h = srcRect.h * 2;
 
-	
 }
-
-int GameObject::getX()
+int fallingObject::getXBox()
 {
 	return xpos;
 }
 
-int GameObject::getY()
+int fallingObject::getYBox()
 {
 	return ypos;
 }
 
-bool checkCollision(SDL_Rect& a, SDL_Rect& b)
+void fallingObject::Render()
 {
-	//check sides of rect
-	int leftA, leftB;
-	int rightA, rightB;
-	int topA, topB;
-	int bottomA, bottomB;
-	return false;
-}
-
-
-void GameObject::Render()
-{
+	
 	SDL_RenderCopy(game::renderer, objTexture, &srcRect, &destRect);
 
 
 	Sleep(2);
 	if (ypos < 576 - 300)
-		velY = 2;
+		velY = 1;
 }
 
-GameObject::~GameObject()
+fallingObject::~fallingObject()
 {
+	SDL_DestroyTexture(objTexture);
 }

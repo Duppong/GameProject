@@ -1,18 +1,19 @@
 #pragma once
 #include "game.h"
 
-class GameObject
+class fallingObject
 {
 public:
 	//file path, spawn points x ,y
-	GameObject(const char* textureSheet, int x, int y);
-	~GameObject();
+	fallingObject(const char* textureSheet, int x, int y);
+	void setCamera(SDL_Rect& Camera);
+	~fallingObject();
 
-	void Update(SDL_Rect& Box);
+	int getXBox();
+	int	getYBox();
+	void Update();
 	void HandleEvent(SDL_Event& e);
 	void Render();
-	int getX();
-	int getY();
 
 private:
 	int xpos;
@@ -20,7 +21,7 @@ private:
 
 	int velX;
 	int velY;
-  
+
 	SDL_Rect collisonBox;
 	SDL_Texture* objTexture;
 	SDL_Rect srcRect, destRect;

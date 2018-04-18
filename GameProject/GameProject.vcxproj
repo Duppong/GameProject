@@ -70,7 +70,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\duppo\source\repos\GameProject\SDL2_image\include;C:\Users\duppo\source\repos\GameProject\SDL2\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\duppo\source\repos\GameProject\SDL2\include;C:\Users\duppo\source\repos\GameProject\SDL2_image\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\duppo\source\repos\GameProject\SDL2_image\lib\x86;C:\Users\duppo\source\repos\GameProject\SDL2\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Users\duppo\source\repos\GameProject\SDL2\include;C:\Users\duppo\source\repos\GameProject\SDL2_image\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\duppo\source\repos\GameProject\SDL2_image\lib\x86;C:\Users\duppo\source\repos\GameProject\SDL2\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -92,6 +96,10 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -122,6 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="fallingObject.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
@@ -129,6 +138,8 @@
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="constants.h" />
+    <ClInclude Include="fallingObject.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Map.h" />
