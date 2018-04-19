@@ -1,80 +1,87 @@
 #include "GameObject.h"
 #include "TextureManager.h"
+#include "Scroll.h"
 #include <Windows.h>
-#include "constants.h"
+int jumpbase;
+ int base;
+Scroll* checkBase;
 
-
-GameObject::GameObject(const char* textureSheet, int x, int y)
+GameObject::GameObject(const char* textureSheet, int x, int y, Scroll* tempScroll)
 {
 	objTexture = TextureManager::LoadTexture(textureSheet);
 
 	xpos = x;
 	ypos = y;
-	velX = 0;
+	//velX = 0;
 	velY = 0;
-
+	checkBase = tempScroll;
+	
+	
 }
-
 
 void GameObject::HandleEvent(SDL_Event & e)
 {
-	int velocty = 2;
-	int jumppoint = 0;// jumping variables
-	const int base = 576;
-
+	base = checkBase->base();
+	
+	
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
 	{
 		switch (e.key.keysym.sym)
 		{
-		/*case SDLK_UP: velY -= velocty;
-			break;
-		case SDLK_DOWN: velY += velocty;
-			break;*/
-		case SDLK_LEFT: velX -= velocty;
-			break;
-		case SDLK_RIGHT: velX += velocty;
-			break;
-		case SDLK_SPACE:
+		
+		case SDLK_SPACE: 
 		{
-			if (ypos = base)
-				velY = -3;
-			else velY = 3;
+			if (velY == -2)
+				velY = -2;
+			else if (ypos == base)
+			{
+				velY = 2;
+				jumpbase = base;
+			}
+			
 			break;
 		}
 		}
 	}
 	else if (e.type == SDL_KEYUP && e.key.repeat == 0)
 	{
+		
 		switch (e.key.keysym.sym)
 		{
-		/*case SDLK_UP: velY += velocty;
-			break;*/
-		/*case SDLK_DOWN: velY -= velocty;
-			break;*/
-		case SDLK_LEFT: velX += velocty;
-			break;
-		case SDLK_RIGHT: velX -= velocty;
-			break;
-		case SDLK_SPACE: velY = 3;
+		
+		case SDLK_SPACE: 
+		{
+			velY = -2;
+			if (velY == -2 && (ypos == base))
+			{
+				velY = 0;
+			}
+		}
+
 		}
 	}
+	
 }
 
-void GameObject::Update(SDL_Rect& Box)
+void GameObject::Update()
 {
-	xpos += velX;
-
-	if (xpos < 0 || (xpos + 64 > screenWidth) )
-	{
-		xpos -= velX;
-	}
-
-	ypos += velY;
-
-	if (ypos < 0 || (ypos + 64 > screenHeight))
+	
+	base = checkBase->base();
+	if (velY == -2 && (ypos == base))
+		{
+			velY = 0;
+		}
+	if (velY == 0 && ypos < base)
+		velY = -2;
+	if (ypos < jumpbase - 240)
+		velY = -2;
+	if (ypos > 0 )
 	{
 		ypos -= velY;
 	}
+	
+	
+	
 
 
 	srcRect.h = 32;
@@ -87,38 +94,17 @@ void GameObject::Update(SDL_Rect& Box)
 	destRect.w = srcRect.w * 2;
 	destRect.h = srcRect.h * 2;
 
-	
 }
 
-int GameObject::getX()
-{
-	return xpos;
-}
-
-int GameObject::getY()
-{
-	return ypos;
-}
-
-bool checkCollision(SDL_Rect& a, SDL_Rect& b)
-{
-	//check sides of rect
-	int leftA, leftB;
-	int rightA, rightB;
-	int topA, topB;
-	int bottomA, bottomB;
-	return false;
-}
 
 
 void GameObject::Render()
 {
 	SDL_RenderCopy(game::renderer, objTexture, &srcRect, &destRect);
-
-
-	Sleep(2);
-	if (ypos < 576 - 300)
-		velY = 2;
+	
+	
+	
+	
 }
 
 GameObject::~GameObject()

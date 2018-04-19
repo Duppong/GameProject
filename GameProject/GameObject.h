@@ -1,27 +1,26 @@
 #pragma once
 #include "game.h"
+#include "Scroll.h"
 
 class GameObject
 {
 public:
 	//file path, spawn points x ,y
-	GameObject(const char* textureSheet, int x, int y);
+	GameObject(const char* , const int x, int y, Scroll* tempScroll);
 	~GameObject();
 
-	void Update(SDL_Rect& Box);
+	void Update();
 	void HandleEvent(SDL_Event& e);
 	void Render();
-	int getX();
-	int getY();
+	
 
 private:
 	int xpos;
 	int ypos;
 
-	int velX;
+	//int velX;
 	int velY;
-  
-	SDL_Rect collisonBox;
+
 	SDL_Texture* objTexture;
 	SDL_Rect srcRect, destRect;
 };

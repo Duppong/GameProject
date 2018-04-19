@@ -2,34 +2,16 @@
 #include "TextureManager.h"
 #include "GameObject.h"
 #include "Map.h"
-#include "fallingObject.h"
-#include <random>
-#include "constants.h"
-#include <iostream>
-using namespace std;
+#include "Scroll.h"
 
 GameObject* player;
-fallingObject* block;
-fallingObject* blockArray [maxBlocks];
 Map* map;
+Scroll* background;
 
 SDL_Renderer* game::renderer = nullptr;
-SDL_Rect collisionBox;
-//SDL_Rect& camera;
-int randomNumber = 5;
-int blockCount = 0;
-int spawnPoint;
-int score = 0;
-game::game()
-{
-}
 
 
-game::~game()
-{
-}
-
-void game::init(const char* title, int width, int height, bool fullscreen)
+game::game(const char* title, int width, int height, bool fullscreen)
 {
 	int flags = 0;
 
@@ -39,7 +21,7 @@ void game::init(const char* title, int width, int height, bool fullscreen)
 	}
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{
-		window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
+		window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 		renderer = SDL_CreateRenderer(window, -1, 0);
 		if (renderer)
 		{
@@ -48,39 +30,10 @@ void game::init(const char* title, int width, int height, bool fullscreen)
 
 		isRunning = true;
 	}
-	player = new GameObject("assets/player.png",0,545);
-	//map = new Map();
-	//block = new fallingObject("assets/platform.png", 0, 100);
-
-}
-void game::checkCollision()
-{
-	if (blockCount != 0)
-	{
-		for (int i = 0; i < blockCount; i++)
-		{
-			if ( player->getX() >= blockArray[i]->getXBox()-64 && player->getX() <= blockArray[i]->getXBox()+64
-				&& player->getY() >= blockArray[i]->getYBox() -64&& player->getY() <= blockArray[i]->getYBox() + 64)
-			{
-				delete blockArray[i];
-				//cout << "X axis collision block " + i << blockArray[i]->getXBox() << endl;
-				score += 10;
-				cout << "Score: " << score << endl;
-				blockCount -= 1;
-			}
-		}
-	}
-}
-void spawnBlocks()
-{
-
-	if (blockCount < maxBlocks)
-	{
-		spawnPoint = rand() % screenWidth;
-		blockArray[blockCount] = new fallingObject("assets/platform.png", 250, 100);
-		blockCount += 1;
-	}
-
+	background = new Scroll("assets/Map.png", 0, 100);
+	player = new GameObject("assets/Dude2.png",264 ,510, background);
+	
+	map = new Map();
 }
 
 
@@ -96,49 +49,30 @@ void game::handleEvents()
 		isRunning = false;
 		break;
 	default:
+		background->HandleEvent(event);
 		player->HandleEvent(event);
-		//checkCollision();
 		break;
 	}
-
 }
 
 void game::update()
 {
-	spawnBlocks();
-	if (blockCount != 0)
-	{
-		for (int i = 0; i < blockCount; i++)
-		{
-			blockArray[i]->Update();
-		}
-	}
-	collisionBox.x = 150;
-	collisionBox.y = 25;
-	collisionBox.w = 32;
-	collisionBox.h = 32;
-	player->Update(collisionBox);
+	background->Update();
+	player->Update();
 	//map->LoadMap();
 }
 
 void game::render()
 {
 	SDL_RenderClear(renderer);
-	//map->DrawMap();
-	if (blockCount != 0)
-	{
-		for (int i = 0; i < blockCount; i++)
-		{
-			blockArray[i]->Render();
-		}
-	}
+	map->DrawMap();
+	background->Render();
 	player->Render();
 	SDL_RenderPresent(renderer);
 }
 
 void game::clean()
 {
-	
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();

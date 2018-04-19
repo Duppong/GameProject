@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -70,12 +70,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\duppo\source\repos\GameProject\SDL2\include;C:\Users\duppo\source\repos\GameProject\SDL2_image\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\duppo\source\repos\GameProject\SDL2_image\lib\x86;C:\Users\duppo\source\repos\GameProject\SDL2\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\GameProject\GameProject-master\SDL2\include;D:\GameProject\GameProject-master\SDL2_image\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\GameProject\GameProject-master\SDL2\lib\x86;D:\GameProject\GameProject-master\SDL2_image\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\duppo\source\repos\GameProject\SDL2\include;C:\Users\duppo\source\repos\GameProject\SDL2_image\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\duppo\source\repos\GameProject\SDL2_image\lib\x86;C:\Users\duppo\source\repos\GameProject\SDL2\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\GameProject\GameProject-master\SDL2\include;D:\GameProject\GameProject-master\SDL2_image\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\GameProject\GameProject-master\SDL2\lib\x86;D:\GameProject\GameProject-master\SDL2_image\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>D:\GameProject\GameProject-master\SDL2\include;D:\GameProject\GameProject-master\SDL2_image\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\GameProject\GameProject-master\SDL2\lib\x86;D:\GameProject\GameProject-master\SDL2_image\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>D:\GameProject\GameProject-master\SDL2\include;D:\GameProject\GameProject-master\SDL2_image\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\GameProject\GameProject-master\SDL2\lib\x86;D:\GameProject\GameProject-master\SDL2_image\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -97,8 +105,8 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -113,6 +121,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -127,22 +136,23 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="fallingObject.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Scroll.cpp" />
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="constants.h" />
-    <ClInclude Include="fallingObject.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Scroll.h" />
     <ClInclude Include="TextureManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

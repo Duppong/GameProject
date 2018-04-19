@@ -6,12 +6,9 @@
 class game
 {
 public:
-	game();
-	~game();
+	game(const char * title, int width, int height, bool fullscreen);
 	//title of window, width, height px
-	void init(const char* title, int width, int height, bool fullscreen);
 	void handleEvents();
-	void checkCollision();
 	void update();
 	bool running() { return isRunning; }
 	void render();

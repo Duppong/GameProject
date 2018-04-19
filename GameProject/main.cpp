@@ -1,5 +1,4 @@
 #include "game.h"
-#include "constants.h"
 
 
 game *gameLoad = nullptr;
@@ -7,13 +6,12 @@ game *gameLoad = nullptr;
 
 int main(int argc, char *argv[])
 {
-	gameLoad = new game();
-	gameLoad->init("GameWindow", screenWidth, screenHeight, false);
+	gameLoad = new game("GameWindow", 800, 640, false);
+	
 	while (gameLoad->running())
 	{
 		gameLoad->handleEvents();
 		gameLoad->update();
-		gameLoad->checkCollision();
 		gameLoad->render();
 	}
 	gameLoad->clean();

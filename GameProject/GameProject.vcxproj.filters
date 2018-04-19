@@ -30,7 +30,7 @@
     <ClCompile Include="Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fallingObject.cpp">
+    <ClCompile Include="Scroll.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,10 +47,7 @@
     <ClInclude Include="Map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="fallingObject.h">
+    <ClInclude Include="Scroll.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
